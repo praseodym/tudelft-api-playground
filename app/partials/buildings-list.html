@@ -1,0 +1,17 @@
+<div class="container-fluid">
+    <div class="row-fluid">
+        <div class="span12" style="">
+            <google-map center="center" draggable="true" zoom="zoom" markers="markers"
+                        refresh="!isMapElementHidden" style="height: 400px; width: 100%;"></google-map>
+        </div>
+
+        <div class="span12" style="margin-top: 2em">
+            <ul>
+                <li ng-repeat="building in buildings">
+                    <a href="#/buildings/{{building.locatieCode}}" class="thumb">{{building.naamNL}}</a>
+                    <p>{{building.binnenlandsAdres}}</p>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>

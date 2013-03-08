@@ -1,0 +1,53 @@
+<div class="container-fluid">
+    <div class="row-fluid">
+        <div class="span12">
+            <table class="table">
+                <thead>
+                <th>%</th>
+                <th>name</th>
+                <th>update</th>
+                <th>courses</th>
+                </thead>
+                <tbody>
+                <tr ng-repeat="workspace in building" style="height: 20px" ng-class="{sub: workspace.sub}">
+                    <td width="110px">
+                        <div class="progress progress-striped" style="width: 100px; margin-bottom: 0"
+                             ng-class="{'progress-danger': workspace.usage < 0.4,
+                                        'progress-warning': (0.4<workspace.usage && workspace.usage<1),
+                                        'progress-success': workspace.usage >= 1}"
+                             ng-hide="workspace.total == 0">
+                            <div class="bar" ng-style="{width: 100*workspace.usage + '%'}"></div>
+                        </div>
+                    </td>
+                    <td width="180px">
+                        {{workspace.name}}
+                        <small ng-hide="workspace.total == 0">
+                            ({{workspace.used}} /
+                            {{workspace.total}})
+                        </small>
+                    </td>
+                    <td width="80px">
+                        {{workspace.computerGebruik.momentopnameDatumTijd.slice(11,16)}}
+                    </td>
+                    <td rowspan="{{ workspace.subs }}" ng-hide="workspace.sub">
+                        <div ng-switch on="workspace.evenementLijst.evenement.length > 1">
+                            <ul ng-switch-when="true" style="list-style: none; margin: 0;">
+                                <li ng-repeat="event in workspace.evenementLijst.evenement">
+                                    {{event.startDatumTijd.slice(11,16)}} – {{event.eindeDatumTijd.slice(11,16)}}:
+                                    {{event.cursus.kortenaamNL}} {{event.cursus.langenaamNL}}
+                                </li>
+                            </ul>
+                            <span ng-switch-default ng-hide="workspace.evenementLijst.evenement.cursus == null">
+                                {{workspace.evenementLijst.evenement.startDatumTijd.slice(11,16)}} – 
+                                {{workspace.evenementLijst.evenement.eindeDatumTijd.slice(11,16)}}:
+                                {{workspace.evenementLijst.evenement.cursus.kortenaamNL}}
+                                {{workspace.evenementLijst.evenement.cursus.langenaamNL}}
+                            </span>
+                        </div>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
